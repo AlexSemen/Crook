@@ -74,15 +74,15 @@ public class AlarmSystem : MonoBehaviour
         _audioSource.Stop();
     }
 
-    private IEnumerator ChangingVolume(float initialVolume, float targetVokume)
+    private IEnumerator ChangingVolume(float initialVolume, float targetVolume)
     {
         _partVolumeChangeTime = initialVolume;
 
-        while (_audioSource.volume != targetVokume)
+        while (_audioSource.volume != targetVolume)
         {
             _partVolumeChangeTime += Time.deltaTime;
 
-            _audioSource.volume = Mathf.MoveTowards(initialVolume, targetVokume, _partVolumeChangeTime / _volumeChangeTime);
+            _audioSource.volume = Mathf.MoveTowards(initialVolume, targetVolume, _partVolumeChangeTime / _volumeChangeTime);
 
             yield return null;
         }

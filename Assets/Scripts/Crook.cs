@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(RequireComponent))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Crook : MonoBehaviour
@@ -28,12 +28,12 @@ public class Crook : MonoBehaviour
     {
         if (_isRunningAway == false)
         {
-            _animator.SetFloat("Speed", _speed);
+            _animator.SetFloat(AnimatorCrookController.Params.Speed, _speed);
             _rigidbody2D.velocity = transform.right * _speed;
         }
         else
         {
-            _animator.SetFloat("Speed", _speedRunningAway);
+            _animator.SetFloat(AnimatorCrookController.Params.Speed, _speedRunningAway);
             _rigidbody2D.velocity = transform.right * -_speedRunningAway;
         }
     }
