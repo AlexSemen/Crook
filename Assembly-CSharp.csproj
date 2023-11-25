@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\AlarmSystem.cs" />
     <Compile Include="Assets\Scripts\AnimatorCrookController.cs" />
     <Compile Include="Assets\Scripts\AnimatorAlarmController.cs" />
+    <Compile Include="Assets\Scripts\TrigerAlarm.cs" />
     <Compile Include="Assets\Scripts\Flashing Light.cs" />
     <Compile Include="Assets\Scripts\Crook.cs" />
   </ItemGroup>

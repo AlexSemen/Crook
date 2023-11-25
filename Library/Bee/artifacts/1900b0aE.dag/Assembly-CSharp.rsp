@@ -363,6 +363,7 @@
 "Assets/Scripts/AnimatorCrookController.cs"
 "Assets/Scripts/Crook.cs"
 "Assets/Scripts/Flashing Light.cs"
+"Assets/Scripts/TrigerAlarm.cs"
 -langversion:9.0
 
 /deterministic

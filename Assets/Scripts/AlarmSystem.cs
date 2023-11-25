@@ -14,63 +14,96 @@ public class AlarmSystem : MonoBehaviour
     private float _audioVolumeMin;
     private float _audioVolumeMax;
     private AudioSource _audioSource;
-    private bool isAlarm;
+    private bool _isAlarm;
+    private TrigerAlarm[] _trigersAlarm;
+    private int _checkDelay;
+    private Coroutine _coroutine;
+
+    private bool _isTargerAlarm
+    {
+        get
+        {
+            foreach (var triger in _trigersAlarm)
+            {
+                if (triger.IsAlarm)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
 
     private void Awake()
     {
         _partVolumeChangeTime = 0;
         _audioVolumeMin = 0;
         _audioVolumeMax = 1;
-        isAlarm = false;
-        
+        _isAlarm = false;
+        _checkDelay = 1;
+
         _audioSource = GetComponent<AudioSource>();
         _audioSource.volume = _audioVolumeMin;
+
+        _trigersAlarm = GetComponentsInChildren<TrigerAlarm>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-        if (isAlarm == false)
+        StartCoroutine(CheckAlarm());
+    }
+
+    private IEnumerator CheckAlarm()
+    {
+        bool isWork = true;
+        var waitForDelay = new WaitForSeconds(_checkDelay);
+
+        while (isWork)
         {
-            if (collision.TryGetComponent<Crook>(out Crook crook))
+            if(_isAlarm != _isTargerAlarm)
             {
-                StartCoroutine(TurnOnAlarm(crook));
+                if (_coroutine != null)
+                {
+                    StopCoroutine(_coroutine);
+                }
+
+                if (_isAlarm == false)
+                {
+                    _coroutine = StartCoroutine(TurnOnAlarm());
+                }
+                else
+                {
+                    _coroutine = StartCoroutine(TurnOffAlarm());
+                }
             }
+
+            yield return waitForDelay;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private IEnumerator TurnOnAlarm()
     {
-        if (isAlarm == true)
-        {
-            if (collision.TryGetComponent<Crook>(out Crook crook))
-            {
-                StartCoroutine(TurnOffAlarm());
-            }
-        }
-    }
+        _isAlarm = true;
 
-    private IEnumerator TurnOnAlarm(Crook crook)
-    {
-        isAlarm = true;
-
-        _flashingLight.SetAlarm(isAlarm);
+        _flashingLight.SetAlarm(_isAlarm);
         _audioSource.Play();
 
-        StartCoroutine(ChangingVolume(_audioVolumeMin, _audioVolumeMax));
+        yield return StartCoroutine(ChangingVolume(_audioVolumeMin, _audioVolumeMax));
 
-        yield return new WaitForSeconds(_volumeChangeTime); 
-        crook.RunningAway();
+        foreach(Crook crook in TrigerAlarm.Crooks)
+        {
+            crook.RunningAway();
+        }
     }
 
     private IEnumerator TurnOffAlarm()
     {
-        isAlarm = false;
-        
-        StartCoroutine(ChangingVolume(_audioVolumeMax, _audioVolumeMin));
-        
-        yield return new WaitForSeconds(_volumeChangeTime);
+        _isAlarm = false;
 
-        _flashingLight.SetAlarm(isAlarm);
+        yield return StartCoroutine(ChangingVolume(_audioVolumeMax, _audioVolumeMin));
+        
+        _flashingLight.SetAlarm(_isAlarm);
         _audioSource.Stop();
     }
 
