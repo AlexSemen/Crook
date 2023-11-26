@@ -7,17 +7,13 @@ using static UnityEditor.Recorder.OutputPath;
 [RequireComponent(typeof(AudioSource))]
 public class AlarmSystem : MonoBehaviour
 {
-    [SerializeField] private float _volumeChangeTime;
-    [SerializeField] private FlashingLight _flashingLight;
+    [SerializeField] private AlarmControllerFlashingLight _controllerFlashingLight;
+    [SerializeField] private AlarmControllerSound _controllerSound;
 
-    private float _partVolumeChangeTime;
-    private float _audioVolumeMin;
-    private float _audioVolumeMax;
-    private AudioSource _audioSource;
     private bool _isAlarm;
     private TrigerAlarm[] _trigersAlarm;
     private int _checkDelay;
-    private Coroutine _coroutine;
+    private int _crookRunningAwayDelay;
 
     private bool _isTargerAlarm
     {
@@ -37,14 +33,9 @@ public class AlarmSystem : MonoBehaviour
 
     private void Awake()
     {
-        _partVolumeChangeTime = 0;
-        _audioVolumeMin = 0;
-        _audioVolumeMax = 1;
         _isAlarm = false;
         _checkDelay = 1;
-
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.volume = _audioVolumeMin;
+        _crookRunningAwayDelay = 2;
 
         _trigersAlarm = GetComponentsInChildren<TrigerAlarm>();
     }
@@ -63,18 +54,13 @@ public class AlarmSystem : MonoBehaviour
         {
             if(_isAlarm != _isTargerAlarm)
             {
-                if (_coroutine != null)
-                {
-                    StopCoroutine(_coroutine);
-                }
+                _isAlarm = _isTargerAlarm;
+                _controllerFlashingLight.SetAlarm(_isAlarm);
+                _controllerSound.TurnAlarm(_isAlarm);
 
-                if (_isAlarm == false)
+                if (_isAlarm == true)
                 {
-                    _coroutine = StartCoroutine(TurnOnAlarm());
-                }
-                else
-                {
-                    _coroutine = StartCoroutine(TurnOffAlarm());
+                    CrookRunningAway();
                 }
             }
 
@@ -82,42 +68,13 @@ public class AlarmSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator TurnOnAlarm()
+    private IEnumerator CrookRunningAway()
     {
-        _isAlarm = true;
+        yield return new WaitForSeconds(_crookRunningAwayDelay);
 
-        _flashingLight.SetAlarm(_isAlarm);
-        _audioSource.Play();
-
-        yield return StartCoroutine(ChangingVolume(_audioVolumeMin, _audioVolumeMax));
-
-        foreach(Crook crook in TrigerAlarm.Crooks)
+        foreach (Crook crook in TrigerAlarm.Crooks)
         {
             crook.RunningAway();
-        }
-    }
-
-    private IEnumerator TurnOffAlarm()
-    {
-        _isAlarm = false;
-
-        yield return StartCoroutine(ChangingVolume(_audioVolumeMax, _audioVolumeMin));
-        
-        _flashingLight.SetAlarm(_isAlarm);
-        _audioSource.Stop();
-    }
-
-    private IEnumerator ChangingVolume(float initialVolume, float targetVolume)
-    {
-        _partVolumeChangeTime = initialVolume;
-
-        while (_audioSource.volume != targetVolume)
-        {
-            _partVolumeChangeTime += Time.deltaTime;
-
-            _audioSource.volume = Mathf.MoveTowards(initialVolume, targetVolume, _partVolumeChangeTime / _volumeChangeTime);
-
-            yield return null;
         }
     }
 }
