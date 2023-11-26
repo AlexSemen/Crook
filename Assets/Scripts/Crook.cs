@@ -40,7 +40,10 @@ public class Crook : MonoBehaviour
 
     public void RunningAway()
     {
-        _spriteRenderer.flipX = true;
-        _isRunningAway = true;
+        if (_isRunningAway == false)
+        {
+            _spriteRenderer.flipX = true;
+            _isRunningAway = true;
+        }
     }
 }

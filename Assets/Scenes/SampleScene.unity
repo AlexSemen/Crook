@@ -358,6 +358,8 @@ GameObject:
   - component: {fileID: 619999620}
   - component: {fileID: 619999622}
   - component: {fileID: 619999621}
+  - component: {fileID: 619999624}
+  - component: {fileID: 619999623}
   m_Layer: 0
   m_Name: Alarm
   m_TagString: Untagged
@@ -394,8 +396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a6872f81d1c154388a5203c2856f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _volumeChangeTime: 2
-  _flashingLight: {fileID: 1554012965}
+  _controllerFlashingLight: {fileID: 619999624}
+  _controllerSound: {fileID: 619999623}
 --- !u!82 &619999622
 AudioSource:
   m_ObjectHideFlags: 0
@@ -492,6 +494,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &619999623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619999618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88a037f7a45c3049b4be6fe046c5c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _volumeChangeTime: 2
+--- !u!114 &619999624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619999618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a6756adbb9e094195c2aeaba5f553f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashingLight: {fileID: 1554012965}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

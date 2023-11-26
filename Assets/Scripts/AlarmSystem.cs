@@ -60,7 +60,7 @@ public class AlarmSystem : MonoBehaviour
 
                 if (_isAlarm == true)
                 {
-                    CrookRunningAway();
+                    StartCoroutine(CrookRunningAway());
                 }
             }
 
