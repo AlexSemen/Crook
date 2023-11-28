@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlarmControllerFlashingLight : MonoBehaviour
+public class AlarmFlashingLight : MonoBehaviour
 {
     [SerializeField] private FlashingLight _flashingLight;
 

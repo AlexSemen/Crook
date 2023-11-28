@@ -7,8 +7,8 @@ using static UnityEditor.Recorder.OutputPath;
 [RequireComponent(typeof(AudioSource))]
 public class AlarmSystem : MonoBehaviour
 {
-    [SerializeField] private AlarmControllerFlashingLight _controllerFlashingLight;
-    [SerializeField] private AlarmControllerSound _controllerSound;
+    [SerializeField] private AlarmFlashingLight _controllerFlashingLight;
+    [SerializeField] private AlarmSound _controllerSound;
 
     private bool _isAlarm;
     private TrigerAlarm[] _trigersAlarm;

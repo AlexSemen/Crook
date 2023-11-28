@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class AlarmControllerSound : MonoBehaviour
+public class AlarmSound : MonoBehaviour
 {
     [SerializeField] private float _volumeChangeTime;
 
