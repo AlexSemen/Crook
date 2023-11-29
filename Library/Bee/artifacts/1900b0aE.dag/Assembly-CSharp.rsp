@@ -361,11 +361,11 @@
 "Assets/Scripts/AlarmFlashingLight.cs"
 "Assets/Scripts/AlarmSound.cs"
 "Assets/Scripts/AlarmSystem.cs"
-"Assets/Scripts/AnimatorAlarmController.cs"
-"Assets/Scripts/AnimatorCrookController.cs"
+"Assets/Scripts/AnimatorAlarm.cs"
+"Assets/Scripts/AnimatorCrook.cs"
 "Assets/Scripts/Crook.cs"
 "Assets/Scripts/Flashing Light.cs"
-"Assets/Scripts/TrigerAlarm.cs"
+"Assets/Scripts/TriggerAlarm.cs"
 -langversion:9.0
 
 /deterministic

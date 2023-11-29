@@ -9,9 +9,9 @@ public class AlarmSystem : MonoBehaviour
 {
     [SerializeField] private AlarmFlashingLight _controllerFlashingLight;
     [SerializeField] private AlarmSound _controllerSound;
+    [SerializeField] private TriggerAlarm _trigersAlarm;
 
     private bool _isAlarm;
-    private TrigerAlarm[] _trigersAlarm;
     private int _checkDelay;
     private int _crookRunningAwayDelay;
 
@@ -19,12 +19,9 @@ public class AlarmSystem : MonoBehaviour
     {
         get
         {
-            foreach (var triger in _trigersAlarm)
+            if (_trigersAlarm.IsAlarm)
             {
-                if (triger.IsAlarm)
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;
@@ -37,7 +34,7 @@ public class AlarmSystem : MonoBehaviour
         _checkDelay = 1;
         _crookRunningAwayDelay = 2;
 
-        _trigersAlarm = GetComponentsInChildren<TrigerAlarm>();
+        //_trigersAlarm = GetComponentsInChildren<TriggerAlarm>();
     }
 
     private void Start()
@@ -72,7 +69,7 @@ public class AlarmSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(_crookRunningAwayDelay);
 
-        foreach (Crook crook in TrigerAlarm.Crooks)
+        foreach (Crook crook in _trigersAlarm.Crooks)
         {
             crook.RunningAway();
         }

@@ -14,6 +14,6 @@ public class FlashingLight : MonoBehaviour
 
     public void SetAlarm(bool isAlarm)
     {
-        _animator.SetBool(AnimatorAlarmController.Params.Alarm, isAlarm);
+        _animator.SetBool(AnimatorAlarm.Params.Alarm, isAlarm);
     }
 }

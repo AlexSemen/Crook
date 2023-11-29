@@ -28,12 +28,12 @@ public class Crook : MonoBehaviour
     {
         if (_isRunningAway == false)
         {
-            _animator.SetFloat(AnimatorCrookController.Params.Speed, _speed);
+            _animator.SetFloat(AnimatorCrook.Params.Speed, _speed);
             _rigidbody2D.velocity = transform.right * _speed;
         }
         else
         {
-            _animator.SetFloat(AnimatorCrookController.Params.Speed, _speedRunningAway);
+            _animator.SetFloat(AnimatorCrook.Params.Speed, _speedRunningAway);
             _rigidbody2D.velocity = transform.right * -_speedRunningAway;
         }
     }

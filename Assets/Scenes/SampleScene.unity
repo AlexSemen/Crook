@@ -398,6 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controllerFlashingLight: {fileID: 619999624}
   _controllerSound: {fileID: 619999623}
+  _trigersAlarm: {fileID: 210662455}
 --- !u!82 &619999622
 AudioSource:
   m_ObjectHideFlags: 0
